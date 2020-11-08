@@ -3,6 +3,7 @@ import TodoPreviewItem from "./TodoPreviewItem";
 //import "./TodoList.css";
 
 const TodoPreviewList = ({
+ currentdayofpreview,
   todos
 }) => {
   return (
@@ -11,9 +12,11 @@ const TodoPreviewList = ({
         <TodoPreviewItem
           todo={todo}
           key={todo.id}
-          flg={todo.flg}
+          flg={todo.startdate===todo.enddate? 0 : 1}
+          currentdayofpreview={currentdayofpreview}
         />
       ))}
+     
     </div>
   );
 };
