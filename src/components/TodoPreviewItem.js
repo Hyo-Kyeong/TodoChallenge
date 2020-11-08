@@ -8,10 +8,13 @@ const isTodayworkicon =(flg)=> {//기간제 또는 당일 작업에 따른 앞�
 
 
 const TodoPreviewItem = ({
-  todo
+  todo,
+  currentdayofpreview
 }) => {
-  const { id, text, checked,flg } = todo;
-  return (
+  const { id, text, checked,flg ,startdate,enddate} = todo;
+  
+  if(startdate===currentdayofpreview||(startdate<=currentdayofpreview&&enddate>=currentdayofpreview))
+  {return (
     <div className="TodoPreviewItem">
       <div className={`content ${checked ? "checked" : ""}`} >
         {checked ? (
@@ -25,6 +28,10 @@ const TodoPreviewItem = ({
       </div>
     </div>
   );
+}
+else{
+    return null;
+}
 };
 
 export default TodoPreviewItem;

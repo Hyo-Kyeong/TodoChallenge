@@ -15,22 +15,60 @@ const App = () => {
   const [todos, setTodos] = useState([
     {
       id: 1,
-      text: "할일 1",
+      text: "오늘포함 기간제",
       checked: true,
-      flg:1
-      //startDate : '2020-11-26'
+      startdate : new Date('2020-11-1'),
+      enddate : new Date('2121-2-2')
+      
     },
     {
       id: 2,
-      text: "할일 2",
+      text: "당일",
       checked: false,
-      flg:0
+      startdate : new Date('2020-11-8'),
+      enddate : new Date('2020-11-8'),
+      
     },
     {
       id: 3,
-      text: "할일 3",
+      text: "오늘부터 시작 기간제",
       checked: true,
-      flg:0
+      startdate : new Date('2020-11-8'),
+      enddate : new Date('2121-12-12')
+      
+    },
+    {
+      id: 4,
+      text: "오늘 불포함 기간제",
+      checked: true,
+      startdate : new Date('2021-11-1'),
+      enddate : new Date('2121-12-12')
+      
+    },
+    {
+      id: 5,
+      text: "오늘 끝나는 기간제",
+      checked: true,
+      startdate : new Date('2020-11-1'),
+      enddate : new Date('2020-11-8')
+      
+    },
+    {
+      id: 6,
+      text: "다른 당일",
+      checked: true,
+      startdate : new Date('2020-11-1'),
+      enddate : new Date('2020-11-1')
+      
+    },
+    {
+      id: 7,
+      text: "오늘 이전의 기간제(오늘 불포함)",
+      checked: true,
+      flg:0,
+      startdate : new Date('2020-10-10'),
+      enddate : new Date('2020-11-5')
+     
     }
   ]);
 
@@ -80,6 +118,7 @@ const App = () => {
   };
 
   const onCurrentDay = (currentDay) => {
+    currentDay.setHours(0,0,0,0);
     setCurrentDay(currentDay);
   }
 
@@ -88,15 +127,17 @@ const App = () => {
       <TodoDate
         onCurrentDay={onCurrentDay}/>
       <TodoPreviewList
+      currentdayofpreview={currentDay}
       todos={todos}
+      
       />
 
-      <TodoList
+      {/* <TodoList
         todos={todos}
         onCheckToggle={onCheckToggle}
         onInsertToggle={onInsertToggle}
         onChangeSelectedTodo={onChangeSelectedTodo}
-      />
+      /> */}
       <div className="add-todo-button" onClick={onInsertToggle}>
         <MdAddCircle />
       </div>
@@ -109,6 +150,7 @@ const App = () => {
           onUpdate={onUpdate}
         />
       )}
+     {currentDay.getFullYear()}
     </Template>
   );
 };
