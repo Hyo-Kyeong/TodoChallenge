@@ -1,0 +1,15 @@
+.notToday_icon{
+    opacity: 0;
+}
+
+.notToday_Boxing{
+    opacity: 1;
+}
+.text{
+    padding-left: 10px;
+}
+
+.text.period {
+    background-color: blue;
+    border-radius: 80px/70px;
+}

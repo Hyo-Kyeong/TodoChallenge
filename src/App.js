@@ -4,28 +4,33 @@ import Template from "./components/Template";
 import TodoList from "./components/TodoList";
 import { MdAddCircle } from "react-icons/md";
 import TodoInsert from "./components/TodoInsert";
-
+import TodoPreviewList from "./components/TodoPreviewList";
+import TodoDate from "./components/TodoDate";
 let nextId = 4;
 
 const App = () => {
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [insertToggle, setInsertToggle] = useState(false);
+  const [currentDay, setCurrentDay] = useState(new Date());
   const [todos, setTodos] = useState([
     {
       id: 1,
       text: "할일 1",
       checked: true,
+      flg:1
       //startDate : '2020-11-26'
     },
     {
       id: 2,
       text: "할일 2",
-      checked: false
+      checked: false,
+      flg:0
     },
     {
       id: 3,
       text: "할일 3",
-      checked: true
+      checked: true,
+      flg:0
     }
   ]);
 
@@ -74,8 +79,18 @@ const App = () => {
     );
   };
 
+  const onCurrentDay = (currentDay) => {
+    setCurrentDay(currentDay);
+  }
+
   return (
     <Template todoLength={todos.length}>
+      <TodoDate
+        onCurrentDay={onCurrentDay}/>
+      <TodoPreviewList
+      todos={todos}
+      />
+
       <TodoList
         todos={todos}
         onCheckToggle={onCheckToggle}
