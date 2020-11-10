@@ -17,6 +17,7 @@ const Calendar = ({getCalendarDate, isWeek}) => {
             if(endDate < startDate) {
                 setEndDate(startDate);
             }
+            getCalendarDate(startDate, endDate);
         }
       });
     if(isWeek) {

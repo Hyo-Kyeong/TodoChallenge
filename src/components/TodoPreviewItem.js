@@ -11,17 +11,13 @@ const TodoPreviewItem = ({
   todo,
   currentdayofpreview
 }) => {
-  const { id, text, checked,flg ,startdate,enddate} = todo;
+  const { id, text, checked,startdate,enddate,flag,flg} = todo;
   
-  if(startdate===currentdayofpreview||(startdate<=currentdayofpreview&&enddate>=currentdayofpreview))
+  if(startdate==currentdayofpreview||(startdate<=currentdayofpreview&&enddate>=currentdayofpreview))
   {return (
     <div className="TodoPreviewItem">
       <div className={`content ${checked ? "checked" : ""}`} >
-        {checked ? (
-            isTodayworkicon(todo.flg)
-        ) : (
-            isTodayworkicon(todo.flg)
-        )}
+        {isTodayworkicon(todo.flg)}
         <div className={`text ${flg===0 ? "" : "period"}`}>
           {text}
         </div>

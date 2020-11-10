@@ -12,20 +12,30 @@ const TodoInsert = ({
   onUpdate
 }) => {
   const [value, setValue] = useState("");
-  const [value_s_date, setValue_s_date] = useState("");
-  const [value_e_date, setValue_e_date] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [flag,setFlag] = useState(0);
 
   const onChange = e => {
     setValue(e.target.value);
   };
+
   const onChangeDate = (startDate, endDate) => {
-    setValue_s_date(startDate);
-    setValue_e_date(endDate);
+    startDate.setHours(0,0,0,0);
+    endDate.setHours(0,0,0,0);
+    setStartDate(startDate);
+    setEndDate(endDate);
+    // console.log("start", startDate);
+    // console.log("end", endDate);
   };
+
+  const handleSelectChange = e => {
+    setFlag((Number)(e.target.value));
+  }
 
   const onSubmit = e => {
     e.preventDefault();
-    onInsertTodo(value);
+    onInsertTodo(value,startDate,endDate,flag);
     setValue("");
     onInsertToggle();
   };
@@ -54,6 +64,13 @@ const TodoInsert = ({
           onChange={onChange}
         ></input>
         <div>기간</div><Calendar getCalendarDate={onChangeDate} isWeek={false}/>
+
+        <div value={flag} onChange={handleSelectChange} >
+            <label><input type="radio" name="flag" value= {Number(1)}/>매달</label>
+            <label><input type="radio" name="flag" value= {Number(2)}/>매주</label>
+            <label><input type="radio" name="flag" value= {Number(3)}/>매일</label>
+        </div>
+
         <div>
         </div>
         {selectedTodo ? (
