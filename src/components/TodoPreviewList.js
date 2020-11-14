@@ -4,10 +4,15 @@ import TodoPreviewItem from "./TodoPreviewItem";
 
 const TodoPreviewList = ({
  currentdayofpreview,
-  todos
+  todos,
+  onDayToggle,
+  onChangeSelectedDay
 }) => {
   return (
-    <div className="TodoPreviewList">
+    <div className="TodoPreviewList" onClick={()=>{
+     onChangeSelectedDay(currentdayofpreview);
+      onDayToggle();
+    }}>
       {todos.map(todo => (
         <TodoPreviewItem
           todo={todo}

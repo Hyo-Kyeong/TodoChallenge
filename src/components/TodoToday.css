@@ -1,0 +1,42 @@
+.TodoToday {
+  margin-left: 10%;
+  position: fixed;
+  top: 20%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 950;
+  width: 300px;
+  height: 300px;
+  border-radius: 5px;
+  box-shadow: 1px 2px 5px 1px #f67280;
+  display: flexbox;
+
+  background: white;
+}
+
+.background {
+    position: fixed;
+    z-index: 900;
+    top: 0;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #6c567b;
+    opacity: 0.8;
+  }
+  
+  .add-todo-button2 {
+    /* position: fixed; */
+    right: -100;
+    top: 1px;
+    z-index: 1000;/*깊이 인덱스 창을 띄우면 얘는 흐릿해져야함*/
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    font-size: 5rem;
+    color: #f67280;
+  }

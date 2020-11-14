@@ -12,8 +12,8 @@ const TodoInsert = ({
   onUpdate
 }) => {
   const [value, setValue] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [flag,setFlag] = useState(0);
 
   const onChange = e => {
@@ -42,18 +42,20 @@ const TodoInsert = ({
 
   useEffect(() => {
     if (selectedTodo) {
+      console.log(selectedTodo.text);
       setValue(selectedTodo.text);
     }
   }, [selectedTodo]);
 
   return (
     <div>
-      <div className="background" onClick={onInsertToggle}></div>
+      <div className="insertbackground" onClick={onInsertToggle}></div>
       <form
         onSubmit={
           selectedTodo
             ? () => {
-                onUpdate(selectedTodo.id, value);
+              console.log("스타트데이트 잘 나와",startDate.getDate());
+                onUpdate(selectedTodo.id, value,selectedTodo.checked,startDate,endDate,selectedTodo.flag,selectedTodo.flg);
               }
             : onSubmit
         }
@@ -63,7 +65,8 @@ const TodoInsert = ({
           value={value}
           onChange={onChange}
         ></input>
-        <div>기간</div><Calendar getCalendarDate={onChangeDate} isWeek={false}/>
+        <div>기간</div><Calendar getCalendarDate={onChangeDate} isWeek={false} 
+           todoStart={selectedTodo ? selectedTodo.startDate : startDate} todoEnd={selectedTodo ? selectedTodo.endDate : endDate}/>
 
         <div value={flag} onChange={handleSelectChange} >
             <label><input type="radio" name="flag" value= {Number(1)}/>매달</label>
@@ -74,10 +77,10 @@ const TodoInsert = ({
         <div>
         </div>
         {selectedTodo ? (
-          <div className="rewrite">d
-            <TiPencil
+          <div className="rewrite">
+            <MdAddCircle
               onClick={() => {
-                onUpdate(selectedTodo.id, value);
+                onUpdate(selectedTodo.id, value,selectedTodo.checked,startDate,endDate,selectedTodo.flag,selectedTodo.flg);
               }}
             />
             <TiTrash

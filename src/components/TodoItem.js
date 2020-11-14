@@ -6,10 +6,12 @@ const TodoItem = ({
   todo,
   onCheckToggle,
   onInsertToggle,
-  onChangeSelectedTodo
+  onChangeSelectedTodo,
+  currentDay
 }) => {
-  const { id, text, checked } = todo;
-  return (
+  const { id, text, checked,startdate,enddate,flag,flg} = todo;
+  if(startdate==currentDay||(startdate<=currentDay&&enddate>=currentDay))
+  {return (
     <div className="TodoItem">
       <div className={`content ${checked ? "checked" : ""}`}>
         {checked ? (
@@ -37,6 +39,10 @@ const TodoItem = ({
       </div>
     </div>
   );
+}
+else{
+  return null;
+}
 };
 
 export default TodoItem;

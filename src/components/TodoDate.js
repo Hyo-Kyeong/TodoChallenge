@@ -8,7 +8,7 @@ const TodoDate = ({onCurrentDay}) => {
     }
 
     return (
-    <Calendar getCalendarDate={onChangeDate} isWeek={true}/>
+    <Calendar getCalendarDate={onChangeDate} isWeek={true} />
     );
 }
 

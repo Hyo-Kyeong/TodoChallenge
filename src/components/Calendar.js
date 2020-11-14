@@ -9,6 +9,7 @@ const Calendar = ({getCalendarDate, isWeek}) => {
     const [endDate, setEndDate] = useState(new Date());
 
     useEffect(() => {
+        console.log("start:", startDate, "end:", endDate)
         if(isWeek) {
             console.log(startDate)
             getCalendarDate(startDate);

@@ -1,15 +1,15 @@
-.background {
+.insertbackground {
     position: fixed;
     z-index: 980;
     top: 0;
     overflow: hidden;
-    width: 100vw;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #6c567b;
+    background: #66b128;
     opacity: 0.8;
+    width: 100vw;
+    height: 100vh;
   }
 
   form {
@@ -20,9 +20,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 990;
+    z-index: 1000;
     width: 300px;
-    height: 150px;
+    height: 250px;
     border-radius: 5px;
     box-shadow: 1px 2px 5px 1px #f67280;
   
@@ -55,10 +55,9 @@
     transition: 0.1s background ease-in;
   }
   
-  .rewrite > svg {
-    padding-top: 20px;
+.rewrite > svg {
+    margin-left: 5px;
+    margin-right: 5px;
     color: #f67280;
-    padding-left: 1rem;
-    padding-right: 1rem;
     font-size: 1.5rem;
   }

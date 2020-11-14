@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TodoPreviewList from "./TodoPreviewList";
 import "./TodoWeekly.css";
 
 const TodoWeekly = ({
     currentDay,
-    todos
+    todos,
+    onDayToggle,
+    onChangeSelectedDay
 }) => {
     var Monday = new Date(currentDay);
     var Tuesday = new Date(currentDay);
@@ -22,30 +24,59 @@ const TodoWeekly = ({
     Thursday.setDate(Sunday.getDate() + 4);
     Friday.setDate(Sunday.getDate() + 5);
     Saturday.setDate(Sunday.getDate() + 6);
+
     return (
         <div className="TodoWeekly">
             <TodoPreviewList
                 currentdayofpreview={Sunday}
-                todos={todos} />
+                todos={todos}
+                onDayToggle={onDayToggle}
+                onChangeSelectedDay={onChangeSelectedDay}
+                //onClick={()=>{onChangeSelectedDay(Sunday);}}
+                />
             <TodoPreviewList
                 currentdayofpreview={Monday}
-                todos={todos} />
+                todos={todos} 
+                onDayToggle={onDayToggle}
+                onChangeSelectedDay={onChangeSelectedDay}
+                //onClick={()=>{onChangeSelectedDay(Monday);}}
+                />
             <TodoPreviewList
                 currentdayofpreview={Tuesday}
-                todos={todos} />
+                todos={todos} 
+                onDayToggle={onDayToggle}
+                onChangeSelectedDay={onChangeSelectedDay}
+                //onClick={()=>{onChangeSelectedDay(Tuesday);}}
+                />
 
             <TodoPreviewList
                 currentdayofpreview={Wednesday}
-                todos={todos} />
+                todos={todos} 
+                onDayToggle={onDayToggle}
+                onChangeSelectedDay={onChangeSelectedDay}
+                //onClick={()=>{onChangeSelectedDay(Wednesday);}}
+                />
             <TodoPreviewList
                 currentdayofpreview={Thursday}
-                todos={todos} />
+                todos={todos} 
+                onDayToggle={onDayToggle}
+                onChangeSelectedDay={onChangeSelectedDay}
+                //onClick={()=>{onChangeSelectedDay(Thursday);}}
+                />
             <TodoPreviewList
                 currentdayofpreview={Friday}
-                todos={todos} />
+                todos={todos} 
+                onDayToggle={onDayToggle}
+                onChangeSelectedDay={onChangeSelectedDay}
+                //onClick={()=>{onChangeSelectedDay(Friday);}}
+                />
             <TodoPreviewList
-                currentdayofpreview={Thursday}
-                todos={todos} />
+                currentdayofpreview={Saturday}
+                todos={todos} 
+                onDayToggle={onDayToggle}
+                onChangeSelectedDay={onChangeSelectedDay}
+                //onClick={()=>{onChangeSelectedDay(Saturday);}}
+                />
 
         </div>
 

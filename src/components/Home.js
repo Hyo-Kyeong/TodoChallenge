@@ -1,22 +1,19 @@
-import React, { useState } from "react";
-import "./App.css";
-//import Template from "./components/Template";
-//import TodoList from "./components/TodoList";
-//import { MdAddCircle } from "react-icons/md";
-//import TodoInsert from "./components/TodoInsert";
+import React, { useEffect, useState } from "react";
+import "./Home.css";
+import Template from "./Template";
+import TodoToday from "./TodoToday";
+import { MdAddCircle } from "react-icons/md";
+import TodoInsert from "./TodoInsert";
 //import TodoPreviewList from "./components/TodoPreviewList";
-//import TodoDate from "./components/TodoDate";
-//import TodoWeekly from "./components/TodoWeekly";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Home from "./components/Home";
-import Challenge from "./components/Challenge";
-import Navigation from "./components/Navigation";
-
+import TodoDate from "./TodoDate";
+import TodoWeekly from "./TodoWeekly";
 let nextId = 8;
-//선영아잘하고있어?잘돌아가?지금윤영주씨만나러갔는데만나서뭐해?밖에서깔깔깔거리는소리가다들려
+
 const App = () => {
   const [selectedTodo, setSelectedTodo] = useState(null);
+  const [selectedDay,setSelectedDay]=useState(new Date());
   const [insertToggle, setInsertToggle] = useState(false);
+  const [dayToggle,setDayToggle] = useState(false);
   const [currentDay, setCurrentDay] = useState(new Date());
   const [todos, setTodos] = useState([
     {
@@ -97,7 +94,10 @@ const App = () => {
     setInsertToggle(prev => !prev);
   };
 
-  
+  const onDayToggle = () => {
+    setDayToggle(prev => !prev);
+  };
+
   const onInsertTodo = (text,startdate,enddate,flag) => {
     if (text === "") {
       return alert("할 일을 입력해주세요.");
@@ -138,15 +138,29 @@ const App = () => {
     setSelectedTodo(todo);
   };
 
+  const onChangeSelectedDay = day => {
+    setSelectedDay(day);
+    console.log("change ", day.getDate());
+  };
+
   const onRemove = id => {
     onInsertToggle();
     setTodos(todos => todos.filter(todo => todo.id !== id));
   };
 
-  const onUpdate = (id, text) => {
+  const onUpdate = (id, text,checked,start,end,flag,flg) => {
+    const correcttodo = {
+      id ,
+      text,
+      checked,
+      start,
+      end,
+      flag,
+      flg
+    };
     onInsertToggle();
     setTodos(todos =>
-      todos.map(todo => (todo.id === id ? { ...todo, text } : todo))
+      todos.map(todo => (todo.id === id ? correcttodo : todo))
     );
   };
 
@@ -155,17 +169,50 @@ const App = () => {
     setCurrentDay(currentDay);
   }
 
+  useEffect(() => {
+    console.log("inserttoggle", insertToggle);
+    if(selectedTodo) console.log("select", selectedTodo.text);
+  })
   return (
-    <div>
-      <BrowserRouter>
-      <Navigation />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/challenge" component={Challenge} />
-          <Route exact path="/home" component={Home} />
-        </Switch>
-      </BrowserRouter>
-    </div>
+    <Template todoLength={todos.length}>
+      <TodoDate
+        onCurrentDay={onCurrentDay}
+        />
+      {/* <TodoPreviewList
+      currentdayofpreview={currentDay}
+      todos={todos}
+      
+      /> */}
+      
+        <TodoWeekly
+      currentDay={currentDay}
+      todos={todos}
+      onDayToggle={onDayToggle}
+      onChangeSelectedDay={onChangeSelectedDay}
+      />
+      
+      {dayToggle && ( <TodoToday
+        todos={todos}
+        selectedDay={selectedDay}
+        onCheckToggle={onCheckToggle}
+        onInsertToggle={onInsertToggle}
+        onChangeSelectedTodo={onChangeSelectedTodo}
+        onDayToggle={onDayToggle}
+      /> )}
+      <div className="add-todo-button" onClick={onInsertToggle}>
+        <MdAddCircle />
+      </div>
+      {insertToggle && (
+        <TodoInsert
+          selectedTodo={selectedTodo}
+          onInsertToggle={onInsertToggle}
+          onInsertTodo={onInsertTodo}
+          onRemove={onRemove}
+          onUpdate={onUpdate}
+        />
+      )}
+      {console.log("오늘", currentDay)}
+    </Template>
   );
 };
 
