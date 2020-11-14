@@ -1,0 +1,6 @@
+.content.complete .text {
+    color: #6c567b;
+    text-decoration: line-through;
+    cursor: pointer;
+    opacity: 0.6;
+  }

@@ -20,9 +20,11 @@ const TodoInsert = ({
     setValue(e.target.value);
   };
 
+
+  
   const onChangeDate = (startDate, endDate) => {
-    startDate.setHours(0,0,0,0);
-    endDate.setHours(0,0,0,0);
+    //startDate.setHours(0,0,0,0);
+    //endDate.setHours(0,0,0,0);
     setStartDate(startDate);
     setEndDate(endDate);
     // console.log("start", startDate);
@@ -42,6 +44,7 @@ const TodoInsert = ({
 
   useEffect(() => {
     if (selectedTodo) {
+      console.log("이거 아닌가?",selectedTodo.startdate.getDate());
       console.log(selectedTodo.text);
       setValue(selectedTodo.text);
     }
@@ -66,17 +69,17 @@ const TodoInsert = ({
           onChange={onChange}
         ></input>
         <div>기간</div><Calendar getCalendarDate={onChangeDate} isWeek={false} 
-           todoStart={selectedTodo ? selectedTodo.startDate : startDate} todoEnd={selectedTodo ? selectedTodo.endDate : endDate}/>
+           start={selectedTodo ? selectedTodo.startdate : new Date()} end={selectedTodo ? selectedTodo.enddate : new Date()}/>
 
         <div value={flag} onChange={handleSelectChange} >
             <label><input type="radio" name="flag" value= {Number(1)}/>매달</label>
             <label><input type="radio" name="flag" value= {Number(2)}/>매주</label>
             <label><input type="radio" name="flag" value= {Number(3)}/>매일</label>
         </div>
-
         <div>
         </div>
         {selectedTodo ? (
+        
           <div className="rewrite">
             <MdAddCircle
               onClick={() => {

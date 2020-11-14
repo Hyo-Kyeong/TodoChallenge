@@ -8,6 +8,7 @@ const TodoItem = ({
   onInsertToggle,
   onChangeSelectedTodo,
   currentDay
+
 }) => {
   const { id, text, checked,startdate,enddate,flag,flg} = todo;
   if(startdate==currentDay||(startdate<=currentDay&&enddate>=currentDay))

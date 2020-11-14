@@ -4,10 +4,11 @@ import "react-datepicker/dist/react-datepicker.css";
 
 /*npm install react-datepickear --save*/
 
-const Calendar = ({getCalendarDate, isWeek}) => {
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+const Calendar = ({getCalendarDate, isWeek,start,end}) => {
+    const [startDate, setStartDate] = useState(start);
+    const [endDate, setEndDate] = useState(end);
 
+    
     useEffect(() => {
         console.log("start:", startDate, "end:", endDate)
         if(isWeek) {
@@ -21,6 +22,7 @@ const Calendar = ({getCalendarDate, isWeek}) => {
             getCalendarDate(startDate, endDate);
         }
       });
+      
     if(isWeek) {
         return (
         <DatePicker

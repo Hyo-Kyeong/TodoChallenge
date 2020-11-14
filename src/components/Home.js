@@ -7,6 +7,7 @@ import TodoInsert from "./TodoInsert";
 //import TodoPreviewList from "./components/TodoPreviewList";
 import TodoDate from "./TodoDate";
 import TodoWeekly from "./TodoWeekly";
+import Calendar from "./Calendar";
 let nextId = 8;
 
 const App = () => {
@@ -149,20 +150,20 @@ const App = () => {
   };
 
   const onUpdate = (id, text,checked,start,end,flag,flg) => {
-    const correcttodo = {
-      id ,
-      text,
-      checked,
-      start,
-      end,
-      flag,
-      flg
-    };
+   
     onInsertToggle();
     setTodos(todos =>
-      todos.map(todo => (todo.id === id ? correcttodo : todo))
+      todos.map(todo => (todo.id === id ? {...todo,text}: todo))
+    );
+    setTodos(todos =>
+      todos.map(todo => (todo.id === id ? {...todo,startdate:start}: todo))
+    );
+    setTodos(todos =>
+      todos.map(todo => (todo.id === id ? {...todo,enddate:end}: todo))
     );
   };
+
+ 
 
   const onCurrentDay = (currentDay) => {
     currentDay.setHours(0,0,0,0);
@@ -198,17 +199,17 @@ const App = () => {
         onInsertToggle={onInsertToggle}
         onChangeSelectedTodo={onChangeSelectedTodo}
         onDayToggle={onDayToggle}
-      /> )}
+        /> )}
       <div className="add-todo-button" onClick={onInsertToggle}>
         <MdAddCircle />
       </div>
       {insertToggle && (
         <TodoInsert
-          selectedTodo={selectedTodo}
-          onInsertToggle={onInsertToggle}
-          onInsertTodo={onInsertTodo}
-          onRemove={onRemove}
-          onUpdate={onUpdate}
+        selectedTodo={selectedTodo}
+        onInsertToggle={onInsertToggle}
+        onInsertTodo={onInsertTodo}
+        onRemove={onRemove}
+        onUpdate={onUpdate}
         />
       )}
       {console.log("오늘", currentDay)}

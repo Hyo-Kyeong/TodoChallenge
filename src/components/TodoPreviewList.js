@@ -9,10 +9,12 @@ const TodoPreviewList = ({
   onChangeSelectedDay
 }) => {
   return (
+  <div>
     <div className="TodoPreviewList" onClick={()=>{
      onChangeSelectedDay(currentdayofpreview);
       onDayToggle();
     }}>
+      {currentdayofpreview.getDate()}
       {todos.map(todo => (
         <TodoPreviewItem
           todo={todo}
@@ -22,6 +24,7 @@ const TodoPreviewList = ({
         />
       ))}
      
+    </div>
     </div>
   );
 };
