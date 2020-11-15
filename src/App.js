@@ -18,6 +18,7 @@ const App = () => {
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [insertToggle, setInsertToggle] = useState(false);
   const [currentDay, setCurrentDay] = useState(new Date());
+  const [inProgress, setProgress] = useState(false);  //추가! inProgress값 이 false
   const [todos, setTodos] = useState([
     {
       id: 1,
@@ -154,14 +155,20 @@ const App = () => {
     currentDay.setHours(0,0,0,0);
     setCurrentDay(currentDay);
   }
+  const onProgress = () => {
+    setProgress(prev => !prev);
+    console.log(inProgress);
+  };
 
+  
   return (
     <div>
       <BrowserRouter >
       
         <Switch >
           <Route exact path="/" component={Home} />
-          <Route exact path="/challenge" component={Challenge} />
+          <Route exact path="/Challenge" 
+          render={()=> (<Challenge onProgress={onProgress} inProgress={inProgress}/>) }/>
           <Route exact path="/home" component={Home} />
         </Switch>
       </BrowserRouter>
