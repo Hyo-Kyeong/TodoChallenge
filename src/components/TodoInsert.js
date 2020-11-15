@@ -23,8 +23,8 @@ const TodoInsert = ({
 
   
   const onChangeDate = (startDate, endDate) => {
-    //startDate.setHours(0,0,0,0);
-    //endDate.setHours(0,0,0,0);
+    startDate.setHours(0,0,0,0);
+    endDate.setHours(0,0,0,0);
     setStartDate(startDate);
     setEndDate(endDate);
     // console.log("start", startDate);

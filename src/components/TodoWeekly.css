@@ -1,7 +1,16 @@
+.TodoWeekly{
+
+ 
+    background-color: darkorange;
+    display: flex;
+}
+
 .TodoPreviewList{
     border-style: solid;
     width: 45vw;
     margin-left: auto;
     margin-right: auto;
     padding-bottom: 20px;
+    background-color: pink;
+    
 }

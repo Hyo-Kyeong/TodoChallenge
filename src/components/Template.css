@@ -3,6 +3,7 @@
     max-height: 100vh;
   }
   .title {
+    text-align: center;
     width: 90vw;
     margin-left: auto;
     margin-right: auto;

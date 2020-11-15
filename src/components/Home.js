@@ -175,7 +175,7 @@ const App = () => {
     if(selectedTodo) console.log("select", selectedTodo.text);
   })
   return (
-    <Template todoLength={todos.length}>
+    <Template currentDay={currentDay}>
       <TodoDate
         onCurrentDay={onCurrentDay}
         />

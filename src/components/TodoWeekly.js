@@ -26,6 +26,7 @@ const TodoWeekly = ({
     Saturday.setDate(Sunday.getDate() + 6);
 
     return (
+        <div>
         <div className="TodoWeekly">
             <TodoPreviewList
                 currentdayofpreview={Sunday}
@@ -41,6 +42,8 @@ const TodoWeekly = ({
                 onChangeSelectedDay={onChangeSelectedDay}
                 //onClick={()=>{onChangeSelectedDay(Monday);}}
                 />
+                </div> 
+               <div className="TodoWeekly">
             <TodoPreviewList
                 currentdayofpreview={Tuesday}
                 todos={todos} 
@@ -56,6 +59,8 @@ const TodoWeekly = ({
                 onChangeSelectedDay={onChangeSelectedDay}
                 //onClick={()=>{onChangeSelectedDay(Wednesday);}}
                 />
+                </div>
+                <div className="TodoWeekly">
             <TodoPreviewList
                 currentdayofpreview={Thursday}
                 todos={todos} 
@@ -69,7 +74,8 @@ const TodoWeekly = ({
                 onDayToggle={onDayToggle}
                 onChangeSelectedDay={onChangeSelectedDay}
                 //onClick={()=>{onChangeSelectedDay(Friday);}}
-                />
+                /></div>
+                <div className="TodoWeekly">
             <TodoPreviewList
                 currentdayofpreview={Saturday}
                 todos={todos} 
@@ -78,6 +84,7 @@ const TodoWeekly = ({
                 //onClick={()=>{onChangeSelectedDay(Saturday);}}
                 />
 
+        </div>
         </div>
 
     );
