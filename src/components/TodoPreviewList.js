@@ -12,7 +12,7 @@ const TodoPreviewList = ({
 }) => {
   return (
   
-    <div className="container-fluid" onClick={()=>{
+    <div className="previewbox" onClick={()=>{
      onChangeSelectedDay(currentdayofpreview);
       onDayToggle();
     }}>
