@@ -1,5 +1,5 @@
 import React from "react";
-
+import Navigation from "./Navigation";
 
 const ChallengeSelect = ({
     onSelectChallenge,
@@ -139,7 +139,9 @@ const ChallengeSelect = ({
       사진찍기 챌린지</button>
     <button value="happy">
       행복 챌린지</button>
+      <Navigation />
     </div>
+    
   );
 };
 

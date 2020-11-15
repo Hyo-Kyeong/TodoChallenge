@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navigation from "./Navigation"
 import ChallengeSelect from "./ChallengeSelect"
 import ChallengeList from "./ChallengeList"
+import Template from "./Template";
 
 function Challenge() { 
 
@@ -225,7 +226,7 @@ function Challenge() {
   }
 
 return (
-  <div>
+  <Template>
     {inProgress && (<ChallengeList 
         challenges={challenges} 
         onChallengeList={onChallengeList}
@@ -235,7 +236,7 @@ return (
         onSelectChallenge={onSelectChallenge}
         onProgress={onProgress}  //카테고리 선택하면,
     />)}
-  </div>
+  </Template>
   
   );
 }

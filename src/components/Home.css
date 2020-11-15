@@ -1,12 +1,23 @@
   
 .add-todo-button {
-    /* position: fixed; */
-    right: -5px;
-    top: 1px;
+    position: fixed;
+    right: 10px;
+    top: 20px;
     z-index: 100;/*깊이 인덱스 창을 띄우면 얘는 흐릿해져야함*/
-    width: 100px;
-    height: 100px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
     font-size: 5rem;
     color: #f67280;
+  }
+   .title {
+    text-align: center;
+    width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+  
+    padding-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #6c567b;
   }

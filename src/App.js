@@ -157,14 +157,15 @@ const App = () => {
 
   return (
     <div>
-      <BrowserRouter>
-      <Navigation />
-        <Switch>
+      <BrowserRouter >
+      
+        <Switch >
           <Route exact path="/" component={Home} />
           <Route exact path="/challenge" component={Challenge} />
           <Route exact path="/home" component={Home} />
         </Switch>
       </BrowserRouter>
+
     </div>
   );
 };

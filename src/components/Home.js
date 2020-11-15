@@ -176,9 +176,13 @@ const App = () => {
   })
   return (
     <Template currentDay={currentDay}>
+      <div className="title"> {currentDay.getFullYear()}년 {currentDay.getMonth()+1}월 {currentDay.getDate()}일</div>
       <TodoDate
         onCurrentDay={onCurrentDay}
         />
+
+        <MdAddCircle className="add-todo-button" onClick={onInsertToggle} />
+    
       {/* <TodoPreviewList
       currentdayofpreview={currentDay}
       todos={todos}
@@ -200,9 +204,7 @@ const App = () => {
         onChangeSelectedTodo={onChangeSelectedTodo}
         onDayToggle={onDayToggle}
         /> )}
-      <div className="add-todo-button" onClick={onInsertToggle}>
-        <MdAddCircle />
-      </div>
+      
       {insertToggle && (
         <TodoInsert
         selectedTodo={selectedTodo}
