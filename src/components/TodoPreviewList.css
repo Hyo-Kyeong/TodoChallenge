@@ -4,3 +4,8 @@
     font-weight: bold;
     font-size: 15px;
 }
+
+.container-fluid{
+    border-style: solid;
+    height:150px;
+}
