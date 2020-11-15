@@ -26,7 +26,7 @@ const TodoWeekly = ({
     Saturday.setDate(Sunday.getDate() + 6);
 
     return (
-        <div>
+        <div className="wrap">
         <div className="TodoWeekly">
             <TodoPreviewList
                 currentdayofpreview={Sunday}

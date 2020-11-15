@@ -1,11 +1,11 @@
+.wrap{
+    margin-top:20px;
+}
 .TodoWeekly{
-
- 
-    background-color: darkorange;
+    
     display: flex;
 }
-
-.TodoPreviewList{
+.TodoWeekly .TodoPreviewList{
     border-style: solid;
     width: 45vw;
     margin-left: auto;
