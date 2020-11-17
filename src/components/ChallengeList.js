@@ -27,6 +27,7 @@ const ChallengeList = ({
             }}/>
         ))}
         </div>
+
         <Navigation />
       </div>
       

@@ -8,12 +8,13 @@ import TodoInsert from "./TodoInsert";
 import TodoDate from "./TodoDate";
 import TodoWeekly from "./TodoWeekly";
 
-const databaseURL = "https://todo-app-67946.firebaseio.com/"
+
+const databaseURL = "https://todo-app-67946.firebaseio.com"
 
 let nextId = 0;
 
-const Home = () => {
-  const [id, setId] = useState("nbgreen");
+const Home = ({handleLogout, user}) => {
+
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [selectedDay,setSelectedDay]=useState(new Date());
   const [insertToggle, setInsertToggle] = useState(false);
@@ -24,7 +25,9 @@ const Home = () => {
 
   useEffect(() => {
     setTodos([]);
-      fetch(`${databaseURL}/user/${id}/todos.json`).then(res => {
+
+      fetch(`${databaseURL}/${user}/todos.json`).then(res => {
+      //fetch(`${databaseURL}/todo.json`).then(res => {
         if(res.status !== 200){
             throw new Error(res.statusText);
         }
@@ -90,7 +93,7 @@ const Home = () => {
   };
 
   const _post = todo => {
-    return fetch(`${databaseURL}/user/${id}/todos.json`, {
+    return fetch(`${databaseURL}/${user}/todos.json`, {
       method: 'POST',
       body: JSON.stringify(todo)
     }).then(res => {
@@ -143,7 +146,10 @@ const Home = () => {
   }
 
   return (
-    <Template>
+
+    <Template currentDay={currentDay}>
+      <button className="logout" onClick={handleLogout}>Logout</button>
+      <div className="clear-left"></div>
       {/* <div className="title"> {currentDay.getFullYear()}년 {currentDay.getMonth()+1}월 {currentDay.getDate()}일</div> */}
       <TodoDate
         onCurrentDay={onCurrentDay}

@@ -18,3 +18,16 @@
   margin-bottom: 5vh;
   height: 70vh;
 }
+
+.logout {
+  float: left;
+  width: 15vw;
+  background-color: coral;
+  border-style: none;
+  border-radius: 5px;
+  font-size: 1vh;
+  margin-left: 3vw;
+}
+.clear-left {
+  clear: left;
+}

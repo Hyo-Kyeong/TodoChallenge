@@ -247,6 +247,7 @@ return (
         onProgress={onProgress}  
         inProgress={inProgress}
         onCreateChallengeToggle={onCreateChallengeToggle}
+
     />)}
   </Template>
   
