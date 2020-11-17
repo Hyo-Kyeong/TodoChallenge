@@ -1,5 +1,5 @@
 .Template {
-    padding-top: 20px;
+    padding-top: 1vh;
     max-height: 100vh;
   }
   .title {
@@ -13,4 +13,11 @@
     color: #6c567b;
   }
 
- 
+  .navbar {
+    bottom: 0.5vh;
+    position: absolute;
+    height: 10vh;
+    background-color: pink;
+    
+  }
+

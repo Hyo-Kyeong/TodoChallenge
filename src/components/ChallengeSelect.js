@@ -1,9 +1,11 @@
 import React from "react";
-
+import "./ChallengeSelect.css";
+import {Row, Col, Container} from 'reactstrap'
 
 const ChallengeSelect = ({
     onSelectChallenge,
-    onProgress
+    onProgress,
+    onCreateChallengeToggle
 }) => {
    
     const song = [
@@ -67,8 +69,10 @@ const ChallengeSelect = ({
 
     const onClickHandler = e => {
         
-    console.log(e.target.value);
-    
+    if(e.target.value === "create") {
+        onCreateChallengeToggle();
+    }
+    else {
     let menuList = song.map((menu) => {
     });  //일단 디폴트로 
     
@@ -121,9 +125,18 @@ const ChallengeSelect = ({
             onSelectChallenge(i++, menu);
         });
     }
+    else if(e.target.value === "create") {
+      onCreateChallengeToggle();
+    }
     onProgress();  //이걸 해줘야 카테고리 화면이 나올 수 있음
   }
+  }
   return (
+    <div className="challenge-select">
+      <div className="text">
+        챌린지를 선택하세요
+      </div>
+      
     <div onClick={(e) => onClickHandler(e)}>
     <button value="song"  >
       노래 챌린지</button>
@@ -139,8 +152,12 @@ const ChallengeSelect = ({
       사진찍기 챌린지</button>
     <button value="happy">
       행복 챌린지</button>
+      <button value="create">
+        나만의 챌린지 만들기
+      </button>
     </div>
-  
+  </div>
+
   );
 };
 

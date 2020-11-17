@@ -3,14 +3,14 @@ import Navigation from "./Navigation"
 import ChallengeSelect from "./ChallengeSelect"
 import ChallengeList from "./ChallengeList"
 import Template from "./Template";
-
-
+import ChallengeCreateToggle from "./ChallengeCreateToggle";
+import "./Challenge.css";
 const Challenge = ({
   onProgress,
   inProgress
 }) => {
 
-  //const [challenges, setChallenges] = useState();
+  const [createChallengeToggle, setcreateChallengeToggle] = useState(false);
   const [today, setToday] = useState(new Date());
   const [startChallengeDate, setStartChallengeDate] = useState(new Date('2020-11-05'));
   const [challenges, setChallenges] = useState([  //변수
@@ -225,11 +225,15 @@ const Challenge = ({
         challenge.id === id ? {...challenge, text : challengeText} : challenge
       )
     );
-  }
+  };
+
+  const onCreateChallengeToggle = () => {
+    setcreateChallengeToggle(prev => !prev);
+  };
 
 return (
   <Template>
-    
+    {createChallengeToggle && <ChallengeCreateToggle/>}
     {inProgress && (<ChallengeList  //inProgress가 true 면  30개 쭉 나열
         challenges={challenges} 
         onChallengeList={onChallengeList}
@@ -242,6 +246,8 @@ return (
         challenge={challenges}
         onProgress={onProgress}  
         inProgress={inProgress}
+        onCreateChallengeToggle={onCreateChallengeToggle}
+
     />)}
   </Template>
   

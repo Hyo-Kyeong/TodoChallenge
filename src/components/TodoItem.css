@@ -18,11 +18,15 @@
   }
   
   .TodoItem .content svg {
-    font-size: 1.5rem;
+    font-size: 3vh;
     color: #ebbdf1;
   }
+  
   .content .text {
-    margin-left: 0.5rem;
+    margin-left: 0.5vw;
+    width: 80%;
+    word-break: break-all;
+
   }
   
   .content.checked .text {
