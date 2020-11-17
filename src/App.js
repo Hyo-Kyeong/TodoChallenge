@@ -132,7 +132,7 @@ const App = () => {
             />))}/>
            <Route exact path="/Challenge" 
           render={()=> (<Challenge onProgress={onProgress} inProgress={inProgress}/>) }/>
-          <Route exact path="/home" render={()=>(user?(<Home handleLogout={handleLogout}/>):(<Login 
+          <Route exact path="/home" render={()=>(user?(<Home handleLogout={handleLogout} user={fire.auth().currentUser.uid}/>):(<Login 
             email={email} 
             setEmail={setEmail}
             password={password}
