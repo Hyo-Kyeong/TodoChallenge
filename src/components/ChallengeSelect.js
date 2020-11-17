@@ -140,6 +140,7 @@ const ChallengeSelect = ({
     <button value="happy">
       행복 챌린지</button>
     </div>
+  
   );
 };
 

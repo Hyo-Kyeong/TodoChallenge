@@ -1,6 +1,8 @@
 import React from "react";
 import TodoPreviewItem from "./TodoPreviewItem";
-//import "./TodoList.css";
+import "./TodoPreviewList.css";
+
+const day=["SUN","MON","TUE","WED","THU","FRI","SAT"];
 
 const TodoPreviewList = ({
  currentdayofpreview,
@@ -9,12 +11,14 @@ const TodoPreviewList = ({
   onChangeSelectedDay
 }) => {
   return (
-  <div>
-    <div className="TodoPreviewList" onClick={()=>{
+  
+    <div className="previewbox" onClick={()=>{
      onChangeSelectedDay(currentdayofpreview);
       onDayToggle();
     }}>
-      {currentdayofpreview.getDate()}
+      <span className="dayText">{day[currentdayofpreview.getDay()]}</span>
+      <span className="dateText">{currentdayofpreview.getDate()}일</span>
+      
       {todos.map(todo => (
         <TodoPreviewItem
           todo={todo}
@@ -25,7 +29,7 @@ const TodoPreviewList = ({
       ))}
      
     </div>
-    </div>
+    
   );
 };
 

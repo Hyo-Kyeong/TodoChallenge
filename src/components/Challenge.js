@@ -1,16 +1,19 @@
 import React, { Component, useState, useEffect } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navigation from "./Navigation"
 import ChallengeSelect from "./ChallengeSelect"
 import ChallengeList from "./ChallengeList"
+import Template from "./Template";
 
-function Challenge() { 
+
+const Challenge = ({
+  onProgress,
+  inProgress
+}) => {
 
   //const [challenges, setChallenges] = useState();
   const [today, setToday] = useState(new Date());
-  const [inProgress, setProgress] = useState(false);
   const [startChallengeDate, setStartChallengeDate] = useState(new Date('2020-11-05'));
-  const [challenges, setChallenges] = useState([
+  const [challenges, setChallenges] = useState([  //변수
     {
       id: 1,
       text: "",
@@ -200,7 +203,7 @@ function Challenge() {
               {...challenge, visible : true} : challenge
           )
     );
-  }
+  };
 
   const onCompleteToggle = id => {
     console.log((today.getTime()-startChallengeDate.getTime())/1000/60/60/24/1);
@@ -211,10 +214,10 @@ function Challenge() {
     );
   };
 
-  const onProgress = () => {
-    setProgress(prev => !prev);
-    console.log(inProgress);
-  }
+  // const onProgress = () => {
+  //   setProgress(prev => !prev);
+  //   console.log(inProgress);
+  // }  //
 
   const onSelectChallenge = (id, challengeText) => {
     setChallenges(challenges =>
@@ -225,19 +228,24 @@ function Challenge() {
   }
 
 return (
-  <div>
-    {inProgress && (<ChallengeList 
+  <Template>
+    
+    {inProgress && (<ChallengeList  //inProgress가 true 면  30개 쭉 나열
         challenges={challenges} 
         onChallengeList={onChallengeList}
         onCompleteToggle={onCompleteToggle}
+        // onProgress={onProgress}
+        // inProgress
        />)}
-    {!inProgress && (<ChallengeSelect 
+    {!inProgress && (<ChallengeSelect   //inProgress가 false 면 카테고리 화면
         onSelectChallenge={onSelectChallenge}
-        onProgress={onProgress}  //카테고리 선택하면,
+        challenge={challenges}
+        onProgress={onProgress}  
+        inProgress={inProgress}
     />)}
-  </div>
+  </Template>
   
   );
-}
+};
 
 export default Challenge;

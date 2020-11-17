@@ -1,0 +1,15 @@
+.dayText {
+    font-size: 2vh;
+    margin-right: 1vw;
+    color: #eb6f94;
+    font-style: italic;
+}
+
+.dateText {
+    font-size: 1.7vh; 
+}
+
+.previewbox {
+    height: 20vh;
+    overflow: hidden;
+}

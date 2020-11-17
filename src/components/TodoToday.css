@@ -1,18 +1,19 @@
-.TodoToday {
-  margin-left: 10%;
-  position: fixed;
-  top: 20%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.today-toggle {
+  position: absolute;
   z-index: 950;
-  width: 300px;
-  height: 300px;
+  top: 20vh;
+  left: 15vw;
+  width: 70vw;
+  height: 50vh;
+}
+.TodoToday {
+  align-items: center;
+  width: 100%;
+  height: 100%;
   border-radius: 5px;
-  box-shadow: 1px 2px 5px 1px #f67280;
-  display: flexbox;
-
+  box-shadow: 1px 2px 5px 1px rgb(211, 176, 240);
   background: white;
+  overflow: scroll;
 }
 
 .background {
@@ -20,23 +21,20 @@
     z-index: 900;
     top: 0;
     overflow: hidden;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
+    width: 100%;
+    height: 100%;
     justify-content: center;
     align-items: center;
-    background: #6c567b;
+    background: #b090b6;
     opacity: 0.8;
   }
-  
-  .add-todo-button2 {
-    /* position: fixed; */
-    right: -100;
-    top: 1px;
-    z-index: 1000;/*깊이 인덱스 창을 띄우면 얘는 흐릿해져야함*/
-    width: 100px;
-    height: 100px;
-    cursor: pointer;
-    font-size: 5rem;
-    color: #f67280;
+
+  .month-text {
+    font-size: 3vh;
+    padding: 0.5vh 2vw;
+    color: #946d9c;
+  }
+
+  .addButton {
+    float: right;
   }

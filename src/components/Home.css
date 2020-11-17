@@ -1,12 +1,19 @@
-  
+
 .add-todo-button {
-    /* position: fixed; */
-    right: -5px;
-    top: 1px;
+    position: relative;
+    float: right;
     z-index: 100;/*깊이 인덱스 창을 띄우면 얘는 흐릿해져야함*/
-    width: 100px;
-    height: 100px;
+    width: 10vw;
+    height: 5vh;
     cursor: pointer;
     font-size: 5rem;
     color: #f67280;
   }
+.clear {
+  clear: right;
+}
+.weekly {
+  padding: 1vw;
+  margin-bottom: 5vh;
+  height: 70vh;
+}
