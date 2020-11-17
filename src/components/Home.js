@@ -7,8 +7,10 @@ import TodoInsert from "./TodoInsert";
 //import TodoPreviewList from "./components/TodoPreviewList";
 import TodoDate from "./TodoDate";
 import TodoWeekly from "./TodoWeekly";
-import Calendar from "./Calendar";
-let nextId = 8;
+
+const databaseURL = "https://todo-colud.firebaseio.com/"
+
+let nextId = 0;
 
 const App = () => {
   const [selectedTodo, setSelectedTodo] = useState(null);
@@ -16,77 +18,37 @@ const App = () => {
   const [insertToggle, setInsertToggle] = useState(false);
   const [dayToggle,setDayToggle] = useState(false);
   const [currentDay, setCurrentDay] = useState(new Date());
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: "2020-11-1 ~ 2020-11-8",
-      checked: true,
-      startdate : new Date('2020-11-1'),
-      enddate : new Date('2020-11-8'),
-      flag:0,
-      flg : 0
-    },
-    {
-      id: 2,
-      text: "2020-11-8",
-      checked: false,
-      startdate : new Date('2020-11-8'),
-      enddate : new Date('2020-11-8'),
-      flag:0,
-      flg : 0
-      
-    },
-    {
-      id: 3,
-      text: "2020-11-12 ~ 먼 미래",
-      checked: true,
-      startdate : new Date('2020-11-12'),
-      enddate : new Date('2121-12-12'),
-      flag:0,
-      flg : 0
-      
-    },
-    {
-      id: 4,
-      text: "2021-11-9 ~ 2020-11-12",
-      checked: true,
-      startdate : new Date('2021-11-9'),
-      enddate : new Date('2020-11-12'),
-      flag:0,
-      flg : 0
-      
-    },
-    {
-      id: 5,
-      text: "오늘 끝나는 기간제",
-      checked: true,
-      startdate : new Date('2020-11-1'),
-      enddate : new Date('2020-11-8'),
-      flag:0,
-      flg : 0
-      
-    },
-    {
-      id: 6,
-      text: "2020-11-1",
-      checked: true,
-      startdate : new Date('2020-11-1'),
-      enddate : new Date('2020-11-1'),
-      flag:0,
-      flg : 0
-      
-    },
-    {
-      id: 7,
-      text: "과거 ~ 2020-11-5",
-      checked: true,
-      startdate : new Date('2020-10-10'),
-      enddate : new Date('2020-11-5'),
-      flag:0,
-      flg : 0
-     
+  const [todos, setTodos] = useState([]);
+  const [words, setWords] = useState([]);
+
+  useEffect(() => {
+    setTodos([]);
+    if(words!=null) {
+      fetch(`${databaseURL}/todo.json`).then(res => {
+        if(res.status !== 200){
+            throw new Error(res.statusText);
+        }
+        return res.json();
+      }).then(words => setWords(words))
+      {Object.keys(words).map(id => {
+        const word = words[id];
+        if(nextId < word.id) nextId=word.id+1;
+        const todo = {
+            id: word.id,
+            text: word.text,
+            checked: word.checked,
+            startdate: new Date(word.startdate),
+            enddate: new Date(word.enddate),
+            flag: word.flag,
+            flg : word.flg
+        };
+    
+        setTodos(todos => todos.concat(todo));
+      }) 
+      }
     }
-  ]);
+  }, [words]);
+
 
   const onInsertToggle = () => {
     if (selectedTodo) {
@@ -122,11 +84,20 @@ const App = () => {
       setTodos(todos => todos.concat(todo));
       nextId++;
 
-      for(let i=0;i<nextId;i++){
-        console.log(todos[i]);
+      _post(todo);
       }
-    }
   };
+
+  const _post = todo => {
+    return fetch(`${databaseURL}/todo.json`, {
+      method: 'POST',
+      body: JSON.stringify(todo)
+    }).then(res => {
+      if(res.status != 200) throw new Error(res.statusText);  
+      return res.json();
+    })
+  }
+
   const onCheckToggle = id => {
     setTodos(todos =>
       todos.map(todo =>
@@ -170,28 +141,28 @@ const App = () => {
     setCurrentDay(currentDay);
   }
 
-  useEffect(() => {
-    console.log("inserttoggle", insertToggle);
-    if(selectedTodo) console.log("select", selectedTodo.text);
-  })
   return (
-    <Template todoLength={todos.length}>
+    <Template currentDay={currentDay}>
+      {/* <div className="title"> {currentDay.getFullYear()}년 {currentDay.getMonth()+1}월 {currentDay.getDate()}일</div> */}
       <TodoDate
         onCurrentDay={onCurrentDay}
         />
+        <MdAddCircle className="add-todo-button" onClick={onInsertToggle} />
+        <div className="clear"></div>
       {/* <TodoPreviewList
       currentdayofpreview={currentDay}
       todos={todos}
       
       /> */}
-      
+      <div className="weekly">
         <TodoWeekly
       currentDay={currentDay}
       todos={todos}
       onDayToggle={onDayToggle}
       onChangeSelectedDay={onChangeSelectedDay}
       />
-      
+      </div>
+      <div className="today">
       {dayToggle && ( <TodoToday
         todos={todos}
         selectedDay={selectedDay}
@@ -200,9 +171,8 @@ const App = () => {
         onChangeSelectedTodo={onChangeSelectedTodo}
         onDayToggle={onDayToggle}
         /> )}
-      <div className="add-todo-button" onClick={onInsertToggle}>
-        <MdAddCircle />
       </div>
+      <div className="inserToggle">
       {insertToggle && (
         <TodoInsert
         selectedTodo={selectedTodo}
@@ -210,9 +180,11 @@ const App = () => {
         onInsertTodo={onInsertTodo}
         onRemove={onRemove}
         onUpdate={onUpdate}
+        selectedDate={selectedDay}
         />
       )}
-      {console.log("오늘", currentDay)}
+      </div>
+      
     </Template>
   );
 };

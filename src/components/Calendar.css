@@ -1,0 +1,14 @@
+.week-title .react-datepicker-wrapper {
+    width: 80vw;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.week-title .react-datepicker__input-container input {
+    border-style: none;
+    text-align: center;
+    font-size: 3vh;
+    width: 100%;
+    color: hsl(325, 40%, 39%);
+}

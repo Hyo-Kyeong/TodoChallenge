@@ -13,8 +13,11 @@ const TodoToday = ({
   return (
     <div>
       <div className="background" onClick = {() => onDayToggle()}></div>
-      
+    <div className="today-toggle">
     <div className="TodoToday">
+    <div className="month-text">{selectedDay.getMonth()+1}월 {selectedDay.getDate()}일<MdAddCircle className="addButton" onClick={()=>onInsertToggle()}/></div>
+    
+      
       {todos.map(todo => (
         <TodoItem
           todo={todo}
@@ -25,9 +28,7 @@ const TodoToday = ({
           currentDay={selectedDay}
         />
       ))}
-      <div className="add-todo-button2" onClick={()=>onInsertToggle()}>
-        <MdAddCircle />
-      </div>
+    </div>
     </div>
     </div>
   );

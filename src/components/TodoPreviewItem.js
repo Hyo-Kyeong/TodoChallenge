@@ -18,7 +18,7 @@ const TodoPreviewItem = ({
     <div className="TodoPreviewItem">
       <div className={`content ${checked ? "checked" : ""}`} >
         {isTodayworkicon(todo.flg)}
-        <div className={`text ${flg===0 ? "" : "period"}`}>
+        <div className={`text ${flg==0 ? "" : "period"}`}>
           {text}
         </div>
       </div>

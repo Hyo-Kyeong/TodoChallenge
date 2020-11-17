@@ -1,3 +1,7 @@
+.TodoPreviewItem {
+  font-size: 1.5vh;
+}
+
 .notToday_icon{
     opacity: 0;
 }
@@ -9,20 +13,18 @@
     padding-left: 10px;
 }
 
-.text.period {
-    background-color: palegoldenrod;
+.text .period {
+    background-color: #742051;
     border-radius: 80px/70px;
 }
-.content svg {
-    font-size: 1.5rem;
+.TodoPreviewItem .content svg {
     color: #f67280;
   }
   .content .text {
-    margin-left: 0.5rem;
-    flex: 1;
+    margin-left: 0.5vw;
+    width: 100%;
   }
   .content {
-    flex: 1;
     display: flex;
     align-items: center;
   }
