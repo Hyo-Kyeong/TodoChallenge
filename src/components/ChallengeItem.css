@@ -4,3 +4,26 @@
     cursor: pointer;
     opacity: 0.6;
   }
+
+  .ChallengeItem {
+    border: solid;
+    border-width: thin;
+    border-color: #ffffff;
+    border-radius: 5px;
+    width: 20%;
+    height: 16.6%;
+    float: left;
+    overflow:hidden;
+    text-align: center;
+    font-size: 1.5vh;
+    color: rgb(83, 22, 73);
+    background: hsl(306, 58%, 91%);
+  } 
+
+  .ChallengeItem .content {
+    height: 100%;
+  }
+
+  .ChallengeItem text {
+    vertical-align: middle;
+  }

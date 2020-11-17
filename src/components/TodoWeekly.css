@@ -8,7 +8,9 @@
     height: 100%;
 }
 .col-6 {
+    height: 25%;
    border-top: solid;
    border-width: thin;
    border-color: hsl(337, 71%, 39%);
+   padding: 0.5vh 0;
 }

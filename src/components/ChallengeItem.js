@@ -14,6 +14,11 @@ const ChallengeItem = ({
     }}
     >
       <div className={`content ${complete ? "complete" : ""}`}>
+        {complete ? (
+          <div></div>) : (
+          <div></div>
+        )
+        }
         {visible ? (
             <div
                 className="text"
@@ -21,7 +26,7 @@ const ChallengeItem = ({
                     {text}
             </div>
         ) : (
-            <div>
+            <div className="text">
                 ???
             </div>
         )}        

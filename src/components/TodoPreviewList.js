@@ -18,7 +18,7 @@ const TodoPreviewList = ({
     }}>
       <span className="dayText">{day[currentdayofpreview.getDay()]}</span>
       <span className="dateText">{currentdayofpreview.getDate()}일</span>
-      
+      <div className="todo-preview-item">
       {todos.map(todo => (
         <TodoPreviewItem
           todo={todo}
@@ -27,7 +27,7 @@ const TodoPreviewList = ({
           currentdayofpreview={currentdayofpreview}
         />
       ))}
-     
+     </div>
     </div>
     
   );

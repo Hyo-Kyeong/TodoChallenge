@@ -10,6 +10,7 @@
 }
 
 .previewbox {
-    height: 20vh;
+    height: 100%;
     overflow: hidden;
+    word-break: break-all;
 }
