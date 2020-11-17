@@ -1,178 +1,127 @@
 import React, { useState } from "react";
 import "./App.css";
-//import Template from "./components/Template";
-//import TodoList from "./components/TodoList";
-//import { MdAddCircle } from "react-icons/md";
-//import TodoInsert from "./components/TodoInsert";
-//import TodoPreviewList from "./components/TodoPreviewList";
-//import TodoDate from "./components/TodoDate";
-//import TodoWeekly from "./components/TodoWeekly";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Challenge from "./components/Challenge";
 import Navigation from "./components/Navigation";
+import fire from "./firebase";
+import Login from "./Login";
+import { useEffect } from "react";
 
-let nextId = 8;
-//선영아잘하고있어?잘돌아가?지금윤영주씨만나러갔는데만나서뭐해?밖에서깔깔깔거리는소리가다들려
 const App = () => {
-  const [selectedTodo, setSelectedTodo] = useState(null);
-  const [insertToggle, setInsertToggle] = useState(false);
-  const [currentDay, setCurrentDay] = useState(new Date());
+  const [user,setUser]=useState(false);
+  const [email,setEmail] = useState("");
+  const [password,setPassword]=useState("");
+  const [emailError,setEmailError]=useState("");
+  const [passwordError,setPasswordError]=useState("");
+  const [hasAccount,setHasAccount]=useState(false);
   const [inProgress, setProgress] = useState(false);  //추가! inProgress값 이 false
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: "2020-11-1 ~ 2020-11-8",
-      checked: true,
-      startdate : new Date('2020-11-1'),
-      enddate : new Date('2020-11-8'),
-      flag:0,
-      flg : 0
-    },
-    {
-      id: 2,
-      text: "2020-11-8",
-      checked: false,
-      startdate : new Date('2020-11-8'),
-      enddate : new Date('2020-11-8'),
-      flag:0,
-      flg : 0
-      
-    },
-    {
-      id: 3,
-      text: "2020-11-12 ~ 먼 미래",
-      checked: true,
-      startdate : new Date('2020-11-12'),
-      enddate : new Date('2121-12-12'),
-      flag:0,
-      flg : 0
-      
-    },
-    {
-      id: 4,
-      text: "2021-11-9 ~ 2020-11-12",
-      checked: true,
-      startdate : new Date('2021-11-9'),
-      enddate : new Date('2020-11-12'),
-      flag:0,
-      flg : 0
-      
-    },
-    {
-      id: 5,
-      text: "오늘 끝나는 기간제",
-      checked: true,
-      startdate : new Date('2020-11-1'),
-      enddate : new Date('2020-11-8'),
-      flag:0,
-      flg : 0
-      
-    },
-    {
-      id: 6,
-      text: "2020-11-1",
-      checked: true,
-      startdate : new Date('2020-11-1'),
-      enddate : new Date('2020-11-1'),
-      flag:0,
-      flg : 0
-      
-    },
-    {
-      id: 7,
-      text: "과거 ~ 2020-11-5",
-      checked: true,
-      startdate : new Date('2020-10-10'),
-      enddate : new Date('2020-11-5'),
-      flag:0,
-      flg : 0
-     
-    }
-  ]);
 
-  const onInsertToggle = () => {
-    if (selectedTodo) {
-      setSelectedTodo(null);
-    }
-    setInsertToggle(prev => !prev);
-  };
-
-  
-  const onInsertTodo = (text,startdate,enddate,flag) => {
-    if (text === "") {
-      return alert("할 일을 입력해주세요.");
-    } else {
-      // console.log("flag=",flag);
-      // console.log("start", startDate);
-      // console.log("end", endDate);
-
-      const todo = {
-        id : nextId,
-        text,
-        checked: false,
-        startdate,
-        enddate,
-        flag,
-        flg : 0
-      };
-
-      console.log(todo);
-
-      setTodos(todos => todos.concat(todo));
-      nextId++;
-
-      for(let i=0;i<nextId;i++){
-        console.log(todos[i]);
-      }
-    }
-  };
-  const onCheckToggle = id => {
-    setTodos(todos =>
-      todos.map(todo =>
-        todo.id === id ? { ...todo, checked: !todo.checked } : todo
-      )
-    );
-  };
-
-  const onChangeSelectedTodo = todo => {
-    setSelectedTodo(todo);
-  };
-
-  const onRemove = id => {
-    onInsertToggle();
-    setTodos(todos => todos.filter(todo => todo.id !== id));
-  };
-
-  const onUpdate = (id, text) => {
-    onInsertToggle();
-    setTodos(todos =>
-      todos.map(todo => (todo.id === id ? { ...todo, text } : todo))
-    );
-  };
-
-  const onCurrentDay = (currentDay) => {
-    currentDay.setHours(0,0,0,0);
-    setCurrentDay(currentDay);
+  const clearInputs=()=>{
+    setEmail("");
+    setPassword("");
   }
+  const clearErrors=()=>{
+    setEmailError("");
+    setPasswordError("");
+  }
+
+  const handleLogin=()=>{
+    clearErrors();
+    fire
+    .auth()
+    .signInWithEmailAndPassword(email,password)
+    .catch(err =>{
+      switch(err.code){
+        case "auth/invalid-email":
+          case "auth/user-disabled":
+            case"auth/user-not-found":
+            setEmailError(err.message);
+            break;
+          case "auth/wrong-password":
+            setPasswordError(err.message);
+            break;
+      }
+    });
+  };
+  
+  const handleSignup =()=>{
+    clearErrors();
+    fire
+    .auth()
+    .createUserWithEmailAndPassword(email,password)
+    .catch(err =>{
+      switch(err.code){
+        case "auth/email-already-in-use":
+          case "auth/invalid-email":
+
+            setEmailError(err.message);
+            break;
+          case "auth/weak-password":
+            setPasswordError(err.message);
+            break;
+      }
+    });
+  };
+
+  const handleLogout=()=>{
+    fire.auth().signOut();
+  };
+  
+  const authListener =()=>{
+    fire.auth().onAuthStateChanged(user=>{
+      if(user){
+        clearInputs();
+        setUser(user);
+      }else{
+        setUser("");
+      }
+    });
+  };
+
+  useEffect(()=>{
+    authListener();
+  },[])
+
   const onProgress = () => {
     setProgress(prev => !prev);
     console.log(inProgress);
   };
 
-  
   return (
     <div>
-      <BrowserRouter >
+      <BrowserRouter>
       
-        <Switch >
-          <Route exact path="/" component={Home} />
-          <Route exact path="/Challenge" 
+        <Switch>
+         <Route exact path="/" 
+          render={()=> (user?(<Home handleLogout={handleLogout}/>):(<Login 
+            email={email} 
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            handleLogin={handleLogin}
+            handleSignup={handleSignup}
+            hasAccount={hasAccount}
+            setHasAccount={setHasAccount}
+            emailError={emailError}
+            passwordError={passwordError}
+            />))}/>
+           <Route exact path="/Challenge" 
           render={()=> (<Challenge onProgress={onProgress} inProgress={inProgress}/>) }/>
-          <Route exact path="/home" component={Home} />
+          <Route exact path="/home" render={()=>(user?(<Home handleLogout={handleLogout}/>):(<Login 
+            email={email} 
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            handleLogin={handleLogin}
+            handleSignup={handleSignup}
+            hasAccount={hasAccount}
+            setHasAccount={setHasAccount}
+            emailError={emailError}
+            passwordError={passwordError}
+            />))}/>
         </Switch>
       </BrowserRouter>
-
     </div>
   );
 };

@@ -6,6 +6,7 @@ const Template = ({ children }) => {
     <div className="Template">
       <div className="this">{children}</div>
     <div className="footer"><Navigation className="Navigation"/></div>
+    <Navigation />
     </div>
   );
 };

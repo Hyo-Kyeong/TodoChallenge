@@ -1,6 +1,7 @@
 import React, {Component, useState, useEffect} from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "./Calendar.css"
 
 /*npm install react-datepickear --save*/
 
@@ -10,9 +11,9 @@ const Calendar = ({getCalendarDate, isWeek,start,end}) => {
 
     
     useEffect(() => {
-        console.log("start:", startDate, "end:", endDate)
+        //console.log("start:", startDate, "end:", endDate)
         if(isWeek) {
-            console.log(startDate)
+            //console.log(startDate)
             getCalendarDate(startDate);
         }
         else {
@@ -25,11 +26,13 @@ const Calendar = ({getCalendarDate, isWeek,start,end}) => {
       
     if(isWeek) {
         return (
+            <div className="week-title">
         <DatePicker
         selected={startDate}
         onChange={date => setStartDate(date)}
-        dateFormat="yyyy/MM/dd"
+        dateFormat="yyyy년 MM월 dd일"
         />
+        </div>
         );
     }
     else {

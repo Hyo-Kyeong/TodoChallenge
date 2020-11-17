@@ -9,11 +9,12 @@ const TodoInsert = ({
   onInsertTodo,
   selectedTodo,
   onRemove,
-  onUpdate
+  onUpdate,
+  selectedDate
 }) => {
   const [value, setValue] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(selectedDate);
+  const [endDate, setEndDate] = useState(selectedDate);
   const [flag,setFlag] = useState(0);
 
   const onChange = e => {
@@ -44,8 +45,6 @@ const TodoInsert = ({
 
   useEffect(() => {
     if (selectedTodo) {
-      console.log("이거 아닌가?",selectedTodo.startdate.getDate());
-      console.log(selectedTodo.text);
       setValue(selectedTodo.text);
     }
   }, [selectedTodo]);
@@ -53,11 +52,11 @@ const TodoInsert = ({
   return (
     <div>
       <div className="insertbackground" onClick={onInsertToggle}></div>
+      <div className="insert-toggle">
       <form
         onSubmit={
           selectedTodo
             ? () => {
-              console.log("스타트데이트 잘 나와",startDate.getDate());
                 onUpdate(selectedTodo.id, value,selectedTodo.checked,startDate,endDate,selectedTodo.flag,selectedTodo.flg);
               }
             : onSubmit
@@ -68,8 +67,8 @@ const TodoInsert = ({
           value={value}
           onChange={onChange}
         ></input>
-        <div>기간</div><Calendar getCalendarDate={onChangeDate} isWeek={false} 
-           start={selectedTodo ? selectedTodo.startdate : new Date()} end={selectedTodo ? selectedTodo.enddate : new Date()}/>
+        <div className="text">기간</div><Calendar getCalendarDate={onChangeDate} isWeek={false} 
+           start={selectedTodo ? selectedTodo.startdate : startDate} end={selectedTodo ? selectedTodo.enddate : endDate}/>
 
         <div value={flag} onChange={handleSelectChange} >
             <label><input type="radio" name="flag" value= {Number(1)}/>매달</label>
@@ -81,7 +80,7 @@ const TodoInsert = ({
         {selectedTodo ? (
         
           <div className="rewrite">
-            <MdAddCircle
+            <TiPencil
               onClick={() => {
                 onUpdate(selectedTodo.id, value,selectedTodo.checked,startDate,endDate,selectedTodo.flag,selectedTodo.flg);
               }}
@@ -98,6 +97,7 @@ const TodoInsert = ({
           </button>
         )}
       </form>
+      </div>
     </div>
   );
 };
