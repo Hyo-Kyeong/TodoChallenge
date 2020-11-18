@@ -3,7 +3,6 @@ import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Challenge from "./components/Challenge";
-import Navigation from "./components/Navigation";
 import fire from "./firebase";
 import Login from "./Login";
 import { useEffect } from "react";

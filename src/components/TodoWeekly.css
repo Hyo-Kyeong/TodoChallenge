@@ -12,6 +12,5 @@
    border-top: solid;
    border-width: thin;
    border-color: hsl(337, 71%, 39%);
-   padding: 0.5vh 0;
-
+   padding: 0.5vh 2vw !important;
 }
