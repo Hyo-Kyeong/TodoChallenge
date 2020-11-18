@@ -65,9 +65,10 @@ const App = () => {
             break;
       }
     }).then(()=>{
-      if(emailError=="" && passwordError=="") {
+      if(emailError==null && passwordError==null) {
+      
         const userData = {
-          emial: fire.auth().currentUser.email,
+          email: fire.auth().currentUser.email,
         }
         _post(fire.auth().currentUser, userData);
       }
@@ -82,7 +83,6 @@ const App = () => {
       body: JSON.stringify(userData)
     }).then(res => {
       if(res.status != 200) throw new Error(res.statusText);  
-      console.log(res);
       return res.json();
     })
   }
