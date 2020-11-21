@@ -318,6 +318,7 @@ const Challenge = ({
   }
 return (
   <Template>
+    <div className="challenge">
     {createChallengeToggle && <ChallengeCreateToggle
       onInsertChallenge={onInsertChallenge}
       onCreateChallengeToggle={onCreateChallengeToggle}
@@ -337,6 +338,7 @@ return (
         onProgress={onProgress}  
         onCreateChallengeToggle={onCreateChallengeToggle}
     />)}
+    </div>
     </div>
   </Template>
   

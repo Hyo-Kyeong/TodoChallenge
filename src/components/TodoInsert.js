@@ -71,11 +71,6 @@ const TodoInsert = ({
         ></input>
         <div className="text">기간</div><Calendar getCalendarDate={onChangeDate} isWeek={false} 
            start={selectedTodo ? selectedTodo.startdate : (dayToggle ? startDate:currentDay)} end={selectedTodo ? selectedTodo.enddate : (dayToggle ? endDate:currentDay)}/>
-        <div value={flag} onChange={handleSelectChange} >
-            <label><input type="radio" name="flag" value= {Number(1)}/>매달</label>
-            <label><input type="radio" name="flag" value= {Number(2)}/>매주</label>
-            <label><input type="radio" name="flag" value= {Number(3)}/>매일</label>
-        </div>
         <div>
         </div>
         {selectedTodo ? (

@@ -20,7 +20,7 @@
   height: 30vh;
 }
 
-form {
+.todo-insert form {
   align-items: center;
   display: flex;
   flex-direction: column;
