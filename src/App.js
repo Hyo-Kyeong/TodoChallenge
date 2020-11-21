@@ -64,10 +64,10 @@ const App = () => {
             break;
       }
     }).then(()=>{
-      if(emailError==null && passwordError==null) {
+      if(emailError.length == 0 && passwordError.length == 0) {
       
         const userData = {
-          email: fire.auth().currentUser.email,
+          email: fire.auth().currentUser.email
         }
         _post(fire.auth().currentUser, userData);
       }
