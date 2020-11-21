@@ -52,12 +52,8 @@ const App = () => {
     .auth()
     .createUserWithEmailAndPassword(email,password)
     .then(()=>{
-      const challenge = {
-          challengeProgress: false
-        }
         const userData = {
-          email: fire.auth().currentUser.email,
-          challenge: challenge
+          email: fire.auth().currentUser.email
         }
         _post(fire.auth().currentUser, userData);
       

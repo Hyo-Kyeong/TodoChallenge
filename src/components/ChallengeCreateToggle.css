@@ -21,7 +21,6 @@
   }
 
   .challenge-create-toggle form {
-    position: relative;
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -34,3 +33,4 @@
     padding: 5% 0;
     overflow: scroll;
   }
+
