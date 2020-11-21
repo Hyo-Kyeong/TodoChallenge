@@ -128,7 +128,7 @@ const App = () => {
             passwordError={passwordError}
             />))}/>
            <Route exact path="/Challenge" 
-          render={()=> (<Challenge user={fire.auth().currentUser.uid}/>) }/>
+          render={()=> (<Challenge user={fire.auth().X}/>) }/>
           <Route exact path="/home" render={()=>(user?(<Home handleLogout={handleLogout} user={fire.auth().currentUser.uid}/>):(<Login 
             email={email} 
             setEmail={setEmail}

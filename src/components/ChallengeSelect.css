@@ -1,3 +1,28 @@
-.challenge-select button {
-    width: 100%;
+.challenge-select .row {
+    height: 70vh;
+    align-items: center;
 }
+.challenge-select .col-12 {
+    width: 100%;
+    text-align: center;
+}
+.challenge-select button {
+    width: 60%;
+    height: 50%;
+    color:#e286a5; 
+    background-color: #f5eef2;
+    border: solid;
+    border-color: #e286a5;
+    border-radius:5px;
+  }
+
+  .challenge-select .text {
+    font-size: 3.5vh;
+    color: hsl(325, 40%, 39%);
+    text-align: center;
+    padding-bottom: 1vh;
+    margin: 2vh 0;
+  }
+  
+  /* background-color: hsl(336, 93%, 89%); 회색핑크 
+  background-color: hsl(338, 49%, 92%); 하얀회색핑크*/

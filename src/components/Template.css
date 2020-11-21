@@ -2,22 +2,5 @@
     padding-top: 1vh;
     max-height: 100vh;
   }
-  .title {
-    width: 90vw;
-    margin-left: auto;
-    margin-right: auto;
-  
-    padding-bottom: 20px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #6c567b;
-  }
 
-  .navbar {
-    bottom: 0;
-    position: absolute;
-    height: 10vh;
-    background-color: pink;
-    
-  }
 

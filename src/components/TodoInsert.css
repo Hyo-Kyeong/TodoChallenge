@@ -1,4 +1,4 @@
-.insertbackground {
+.todo-insert .insertbackground {
   position: fixed;
   z-index: 980;
   top: 0;
@@ -11,7 +11,7 @@
   height: 100%;
 }
 
-.insert-toggle {
+.todo-insert .insert-toggle {
   position: absolute;
   z-index: 1000;
   top: 35vh;

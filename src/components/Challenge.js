@@ -16,6 +16,8 @@ const Challenge = ({
   const [createChallengeToggle, setcreateChallengeToggle] = useState(false);
   const [today, setToday] = useState(new Date());
   const [startChallengeDate, setStartChallengeDate] = useState();
+  const [challengeStore, setChallenegeStore] = useState();
+  const [firstFetchChallenge, setFirstFetchChallenge]=useState(false);
   const [challenges, setChallenges] = useState([  //변수
     {
       id: 1,
@@ -211,14 +213,14 @@ const Challenge = ({
     const day = new Date();
     day.setHours(0, 0, 0, 0);
     setStartChallengeDate(day);
-
+    setChallenegeStore()
     onProgress();
   }
 
-  const _post = (challengeList) => {
-    return fetch(`${databaseURL}/${user}/challenge.json`, {
+  const _post = (url, challenge) => {
+    return fetch(url, {
       method: 'PUT',
-      body: JSON.stringify(challengeList)
+      body: JSON.stringify(challenge)
     }).then(res => {
       if(res.status != 200) throw new Error(res.statusText);  
       return res.json();
@@ -226,26 +228,42 @@ const Challenge = ({
   }
 
   useEffect(() => {
-    //console.log(challenges);
-    const challengeList = {
-      challengeList : challenges,
-      startDate: startChallengeDate
-    }
-    const challenge = {
-      challengeProgress : inProgress,
-      challenge : challengeList
-    }
-    _post(challenge);
-  }, [challenges]);
-
-  useEffect(() => {
-      fetch(`${databaseURL}/${user}/challenge/challengeProgress.json`).then(res => {
-      if(res.status !== 200){
+    if(firstFetchChallenge == false) {
+      fetch(`${databaseURL}/${user}/challenge.json`).then(res => {
+      //fetch(`${databaseURL}/todo.json`).then(res => {
+        if(res.status !== 200){
             throw new Error(res.statusText);
         }
         return res.json();
-      }).then(challengeProgress => setProgress(challengeProgress))
-  }, []);
+      })
+      .then(challengeStore => setChallenegeStore(challengeStore))
+      
+      if(challengeStore!=null && inProgress==false) {
+        const startDate = new Date(challengeStore.startDate);
+        const challengeProgress = challengeStore.challengeProgress;
+        const challengeList = challengeStore.challengeList;
+    
+        setStartChallengeDate(startDate);
+        setProgress(challengeProgress);
+        setChallenges(challengeList);
+
+        setFirstFetchChallenge(true);
+      }
+      
+    }
+  }, [challengeStore]);
+
+  useEffect(() => {
+    if(inProgress == true) {
+      const url =`${databaseURL}/${user}/challenge.json`;
+        const challenge = {
+          challengeProgress : inProgress,
+          challengeList : challenges,
+          startDate: startChallengeDate
+        }
+        _post(url, challenge);
+      } 
+  });
 
   const onChallengeList = () => {
     setChallenges(challenges =>
@@ -257,7 +275,6 @@ const Challenge = ({
   };
 
   const onCompleteToggle = id => {
-    console.log((today.getTime()-startChallengeDate.getTime())/1000/60/60/24/1);
     setChallenges(challenges =>
       challenges.map(challenge =>
         challenge.id === id && (Math.floor((today.getTime()-startChallengeDate.getTime())/1000/60/60/24) == challenge.id-1)? { ...challenge, complete: !challenge.complete } : challenge
@@ -265,10 +282,6 @@ const Challenge = ({
     );
   };
 
-  // const onProgress = () => {
-  //   setProgress(prev => !prev);
-  //   console.log(inProgress);
-  // }  //
 
   const onSelectChallenge = (id, challengeText) => {
     setChallenges(challenges =>
@@ -276,13 +289,33 @@ const Challenge = ({
         challenge.id === id ? {...challenge, text : challengeText} : challenge
       )
     );
-    console.log(id, challenges);
   };
 
   const onCreateChallengeToggle = () => {
     setcreateChallengeToggle(prev => !prev);
   };
 
+  const onChallengeRestart = () => {
+      fetch(`${databaseURL}/${user}/challenge.json`, {
+        method: 'DELETE',
+      }).then(res => {
+          if(res.status != 200) throw new Error(res.statusText);
+  
+          return res.json();
+      })
+      
+    onProgress();
+    resetChallenges();
+  }
+
+  const resetChallenges = () => {
+    setChallenges(challenges => 
+      challenges.map(challenge => (
+        {
+          ...challenge, text: "", visible: false, complete: false
+        })
+    ))
+  }
 return (
   <Template>
     {createChallengeToggle && <ChallengeCreateToggle
@@ -294,14 +327,17 @@ return (
         challenges={challenges} 
         onChallengeList={onChallengeList}
         onCompleteToggle={onCompleteToggle}
+        onChallengeRestart={onChallengeRestart}
         // onProgress={onProgress}
         // inProgress
        />)}
+    <div className="challenge-select-panel">
     {!inProgress && (<ChallengeSelect   //inProgress가 false 면 카테고리 화면
         onInsertChallenge={onInsertChallenge}
         onProgress={onProgress}  
         onCreateChallengeToggle={onCreateChallengeToggle}
     />)}
+    </div>
   </Template>
   
   );

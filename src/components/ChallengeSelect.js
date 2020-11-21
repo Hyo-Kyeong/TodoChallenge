@@ -72,9 +72,6 @@ const ChallengeSelect = ({
         onCreateChallengeToggle();
     }
     else {
-      let menuList = song.map((menu) => {
-      });  //일단 디폴트로 
-      
       if(e.target.value === "song"){
         onInsertChallenge(song);
       }
@@ -103,25 +100,42 @@ const ChallengeSelect = ({
       <div className="text">
         챌린지를 선택하세요
       </div>
-      
     <div onClick={(e) => onClickHandler(e)}>
+      <Row>
+        <Col xs = "12">
     <button value="song"  >
       노래 챌린지</button>
+      </Col>
+      <Col xs = "12">
     <button value="book">
       독서 챌린지</button>
+      </Col>
+      <Col xs = "12">
     <button value="selfcare">
       셀프케어 챌린지</button>
+      </Col>
+      <Col xs = "12">
     <button value="cleaning">
       정리 챌린지</button>
+      </Col>
+      <Col xs = "12">
     <button value="study">
       언어공부 챌린지</button>
+      </Col>
+      <Col xs = "12">
     <button value="photo">
       사진찍기 챌린지</button>
+      </Col>
+      <Col xs = "12">
     <button value="happy">
       행복 챌린지</button>
+      </Col>
+      <Col xs = "12">
       <button value="create">
         나만의 챌린지 만들기
       </button>
+      </Col>
+      </Row>
     </div>
   </div>
 

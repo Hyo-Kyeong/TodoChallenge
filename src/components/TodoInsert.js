@@ -52,7 +52,7 @@ const TodoInsert = ({
   }, [selectedTodo]);
 
   return (
-    <div>
+    <div className="todo-insert">
       <div className="insertbackground" onClick={onInsertToggle}></div>
       <div className="insert-toggle">
       <form
