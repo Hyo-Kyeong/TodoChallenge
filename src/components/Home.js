@@ -102,12 +102,32 @@ const Home = ({handleLogout, user}) => {
     })
   }
 
-  const onCheckToggle = id => {
-    setTodos(todos =>
-      todos.map(todo =>
-        todo.id === id ? { ...todo, checked: !todo.checked } : todo
-      )
-    );
+  const onCheckToggle = (ID) => {
+    
+    if(words!=null) {
+      
+      {Object.keys(words).map(id => {
+        
+        if(words[id].id == ID){
+        
+          fetch(`${databaseURL}/${user}/todos/${id}.json`, {
+              body: `{\n  \"checked\": ${!words[id].checked}\n}`,
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+              },
+              method: "PATCH"
+            }).then(res => {
+              if(res.status != 200) throw new Error(res.statusText);
+      
+              return res.json();
+          }).then(() => {
+            //console.log(words[id].checked);
+          })
+        }
+
+      }) 
+      }
+    }
   };
 
   const onChangeSelectedTodo = todo => {
@@ -119,26 +139,78 @@ const Home = ({handleLogout, user}) => {
     console.log("change ", day.getDate());
   };
 
-  const onRemove = id => {
+  const onRemove = selectedTodo => {
     onInsertToggle();
-    setTodos(todos => todos.filter(todo => todo.id !== id));
-  };
+    
+    if(words!=null) {
+      
+      {Object.keys(words).map(id => {
+        
+        if(words[id].id == selectedTodo.id){
+          console.log(id)
+          fetch(`${databaseURL}/${user}/todos/${id}.json`, {
+            method: 'DELETE',
+          }).then(res => {
+              if(res.status != 200) throw new Error(res.statusText);
+      
+              return res.json();
+          }).then(() => {
+              //delete todos[id];
+          })
+        }
 
-  const onUpdate = (id, text,checked,start,end,flag,flg) => {
-   
-    onInsertToggle();
-    setTodos(todos =>
-      todos.map(todo => (todo.id === id ? {...todo,text}: todo))
-    );
-    setTodos(todos =>
-      todos.map(todo => (todo.id === id ? {...todo,startdate:start}: todo))
-    );
-    setTodos(todos =>
-      todos.map(todo => (todo.id === id ? {...todo,enddate:end}: todo))
-    );
-  };
+      }) 
+      }
+    }
+    
+    //setTodos(todos => todos.filter(todo => todo.id !== id));
+    };
 
- 
+    const onUpdate = (selectedTodo,id, text,checked,start,end,flag,flg) => {
+
+      console.log(selectedTodo)
+  
+      if(words!=null) {
+        
+        {Object.keys(words).map(id => {
+
+          console.log(id)
+          
+          if(words[id].id == selectedTodo.id){
+            //console.log(id)
+  
+            fetch(`${databaseURL}/${user}/todos/${id}.json`, {
+              //body: "{\n  \"text\": \"Alan The Machine\",\n  \"startdate\": \"2020-11-20\",\n  \"enddate\": \"2020-11-20\",\n  \"flag\": \"2\"\n}",
+                body: `{\n  \"text\": \"${text}\",\n  \"startdate\": \"${start}\",\n  \"enddate\": \"${end}\",\n  \"flag\": \"${flag}\"\n}`,
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded"
+                },
+                method: "PATCH"
+              }).then(res => {
+                if(res.status != 200) throw new Error(res.statusText);
+        
+                return res.json();
+            }).then(() => {
+                //delete todos[id];
+            })
+          }
+  
+        }) 
+        }
+      }
+  
+      onInsertToggle();
+      setTodos(todos =>
+        todos.map(todo => (todo.id === id ? {...todo,text}: todo))
+      );
+      setTodos(todos =>
+        todos.map(todo => (todo.id === id ? {...todo,startdate:start}: todo))
+      );
+      setTodos(todos =>
+        todos.map(todo => (todo.id === id ? {...todo,enddate:end}: todo))
+      );
+    };
+
 
   const onCurrentDay = (currentDay) => {
     currentDay.setHours(0,0,0,0);
@@ -188,6 +260,8 @@ const Home = ({handleLogout, user}) => {
         onRemove={onRemove}
         onUpdate={onUpdate}
         selectedDate={selectedDay}
+        dayToggle={dayToggle}
+        currentDay={currentDay}
         />
       )}
       </div>

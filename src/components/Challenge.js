@@ -5,19 +5,22 @@ import ChallengeList from "./ChallengeList"
 import Template from "./Template";
 import ChallengeCreateToggle from "./ChallengeCreateToggle";
 import "./Challenge.css";
+
+const databaseURL = "https://todo-app-67946.firebaseio.com"
+
 const Challenge = ({
-  onProgress,
-  inProgress
+  user
 }) => {
 
+  const [inProgress, setProgress] = useState(false);  //추가! inProgress값 이 false
   const [createChallengeToggle, setcreateChallengeToggle] = useState(false);
   const [today, setToday] = useState(new Date());
-  const [startChallengeDate, setStartChallengeDate] = useState(new Date('2020-11-05'));
+  const [startChallengeDate, setStartChallengeDate] = useState();
   const [challenges, setChallenges] = useState([  //변수
     {
       id: 1,
       text: "",
-      complete: true,
+      complete: false,
       visible: false
     },
     {
@@ -35,13 +38,13 @@ const Challenge = ({
     {
       id: 4,
       text: "",
-      complete: true,
+      complete: false,
       visible: false
     },
     {
       id: 5,
       text: "",
-      complete: true,
+      complete: false,
       visible: false
     },
     {
@@ -196,6 +199,54 @@ const Challenge = ({
     }
   ]);
  
+  const onProgress = () => {
+    setProgress(prev => !prev);
+  };
+
+  const onInsertChallenge = (challengeList) => {
+    let i=1;
+    challengeList.map((menu) => 
+      onSelectChallenge(i++, menu)
+    )
+    const day = new Date();
+    day.setHours(0, 0, 0, 0);
+    setStartChallengeDate(day);
+
+    onProgress();
+  }
+
+  const _post = (challengeList) => {
+    return fetch(`${databaseURL}/${user}/challenge.json`, {
+      method: 'PUT',
+      body: JSON.stringify(challengeList)
+    }).then(res => {
+      if(res.status != 200) throw new Error(res.statusText);  
+      return res.json();
+    })
+  }
+
+  useEffect(() => {
+    //console.log(challenges);
+    const challengeList = {
+      challengeList : challenges,
+      startDate: startChallengeDate
+    }
+    const challenge = {
+      challengeProgress : inProgress,
+      challenge : challengeList
+    }
+    _post(challenge);
+  }, [challenges]);
+
+  useEffect(() => {
+      fetch(`${databaseURL}/${user}/challenge/challengeProgress.json`).then(res => {
+      if(res.status !== 200){
+            throw new Error(res.statusText);
+        }
+        return res.json();
+      }).then(challengeProgress => setProgress(challengeProgress))
+  }, []);
+
   const onChallengeList = () => {
     setChallenges(challenges =>
           challenges.map(challenge => 
@@ -225,6 +276,7 @@ const Challenge = ({
         challenge.id === id ? {...challenge, text : challengeText} : challenge
       )
     );
+    console.log(id, challenges);
   };
 
   const onCreateChallengeToggle = () => {
@@ -233,7 +285,11 @@ const Challenge = ({
 
 return (
   <Template>
-    {createChallengeToggle && <ChallengeCreateToggle/>}
+    {createChallengeToggle && <ChallengeCreateToggle
+      onInsertChallenge={onInsertChallenge}
+      onCreateChallengeToggle={onCreateChallengeToggle}
+      onProgress={onProgress}
+    />}
     {inProgress && (<ChallengeList  //inProgress가 true 면  30개 쭉 나열
         challenges={challenges} 
         onChallengeList={onChallengeList}
@@ -242,12 +298,9 @@ return (
         // inProgress
        />)}
     {!inProgress && (<ChallengeSelect   //inProgress가 false 면 카테고리 화면
-        onSelectChallenge={onSelectChallenge}
-        challenge={challenges}
+        onInsertChallenge={onInsertChallenge}
         onProgress={onProgress}  
-        inProgress={inProgress}
         onCreateChallengeToggle={onCreateChallengeToggle}
-
     />)}
   </Template>
   

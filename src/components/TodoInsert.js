@@ -10,7 +10,9 @@ const TodoInsert = ({
   selectedTodo,
   onRemove,
   onUpdate,
-  selectedDate
+  selectedDate,
+  dayToggle,
+  currentDay
 }) => {
   const [value, setValue] = useState("");
   const [startDate, setStartDate] = useState(selectedDate);
@@ -57,8 +59,8 @@ const TodoInsert = ({
         onSubmit={
           selectedTodo
             ? () => {
-                onUpdate(selectedTodo.id, value,selectedTodo.checked,startDate,endDate,selectedTodo.flag,selectedTodo.flg);
-              }
+                onUpdate(selectedTodo,selectedTodo.id, value,selectedTodo.checked,startDate,endDate,selectedTodo.flag,selectedTodo.flg);
+            }
             : onSubmit
         }
       >
@@ -68,8 +70,7 @@ const TodoInsert = ({
           onChange={onChange}
         ></input>
         <div className="text">기간</div><Calendar getCalendarDate={onChangeDate} isWeek={false} 
-           start={selectedTodo ? selectedTodo.startdate : startDate} end={selectedTodo ? selectedTodo.enddate : endDate}/>
-
+           start={selectedTodo ? selectedTodo.startdate : (dayToggle ? startDate:currentDay)} end={selectedTodo ? selectedTodo.enddate : (dayToggle ? endDate:currentDay)}/>
         <div value={flag} onChange={handleSelectChange} >
             <label><input type="radio" name="flag" value= {Number(1)}/>매달</label>
             <label><input type="radio" name="flag" value= {Number(2)}/>매주</label>
@@ -82,12 +83,12 @@ const TodoInsert = ({
           <div className="rewrite">
             <TiPencil
               onClick={() => {
-                onUpdate(selectedTodo.id, value,selectedTodo.checked,startDate,endDate,selectedTodo.flag,selectedTodo.flg);
+                onUpdate(selectedTodo,selectedTodo.id, value,selectedTodo.checked,startDate,endDate,selectedTodo.flag,selectedTodo.flg);
               }}
             />
             <TiTrash
               onClick={() => {
-                onRemove(selectedTodo.id);
+                onRemove(selectedTodo);
               }}
             />
           </div>

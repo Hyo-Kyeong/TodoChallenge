@@ -3,8 +3,7 @@ import "./ChallengeSelect.css";
 import {Row, Col, Container} from 'reactstrap'
 
 const ChallengeSelect = ({
-    onSelectChallenge,
-    onProgress,
+    onInsertChallenge,
     onCreateChallengeToggle
 }) => {
    
@@ -73,63 +72,31 @@ const ChallengeSelect = ({
         onCreateChallengeToggle();
     }
     else {
-    let menuList = song.map((menu) => {
-    });  //일단 디폴트로 
-    
-    if(e.target.value === "song"){
-        let i=1;
-        menuList = song.map((menu) => {
-            console.log(menu);
-            onSelectChallenge(i++, menu);
-        });
+      let menuList = song.map((menu) => {
+      });  //일단 디폴트로 
+      
+      if(e.target.value === "song"){
+        onInsertChallenge(song);
+      }
+      else if(e.target.value === "book"){
+        onInsertChallenge(book);
+      }
+      else if(e.target.value === "selfcare"){
+        onInsertChallenge(selfcare);
+      }
+      else if(e.target.value === "cleaning"){
+        onInsertChallenge(cleaning);
+      }
+      else if(e.target.value === "study"){
+        onInsertChallenge(study);
+      }
+      else if(e.target.value === "photo"){
+        onInsertChallenge(photo);
+      }
+      else if(e.target.value === "happy"){
+        onInsertChallenge(happy);
+      }
     }
-    else if(e.target.value === "book"){
-        let i=1;
-        menuList = book.map((menu) => {
-            console.log(menu);
-            onSelectChallenge(i++, menu);
-        });
-    }
-    else if(e.target.value === "selfcare"){
-        let i=1;
-        menuList = selfcare.map((menu) => {
-            console.log(menu);
-            onSelectChallenge(i++, menu);
-        });
-    }
-    else if(e.target.value === "cleaning"){
-        let i=1;
-        menuList = cleaning.map((menu) => {
-            console.log(menu);
-            onSelectChallenge(i++, menu);
-        });
-    }
-    else if(e.target.value === "study"){
-        let i=1;
-        menuList = study.map((menu) => {
-            console.log(menu);
-            onSelectChallenge(i++, menu);
-        });
-    }
-    else if(e.target.value === "photo"){
-        let i=1;
-        menuList = photo.map((menu) => {
-            console.log(menu);
-            onSelectChallenge(i++, menu);
-        });
-    }
-    else if(e.target.value === "happy"){
-        let i=1;
-        menuList = happy.map((menu) => {
-            console.log(menu);
-            onSelectChallenge(i++, menu);
-        });
-    }
-    else if(e.target.value === "create") {
-      onCreateChallengeToggle();
-    }
-    onProgress();  //이걸 해줘야 카테고리 화면이 나올 수 있음
-  }
   }
   return (
     <div className="challenge-select">

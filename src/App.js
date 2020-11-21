@@ -17,7 +17,6 @@ const App = () => {
   const [emailError,setEmailError]=useState("");
   const [passwordError,setPasswordError]=useState("");
   const [hasAccount,setHasAccount]=useState(false);
-  const [inProgress, setProgress] = useState(false);  //추가! inProgress값 이 false
 
   const clearInputs=()=>{
     setEmail("");
@@ -52,7 +51,17 @@ const App = () => {
     fire
     .auth()
     .createUserWithEmailAndPassword(email,password)
-    .catch(err =>{
+    .then(()=>{
+      const challenge = {
+          challengeProgress: false
+        }
+        const userData = {
+          email: fire.auth().currentUser.email,
+          challenge: challenge
+        }
+        _post(fire.auth().currentUser, userData);
+      
+    }).catch(err =>{
       switch(err.code){
         case "auth/email-already-in-use":
           case "auth/invalid-email":
@@ -62,14 +71,6 @@ const App = () => {
           case "auth/weak-password":
             setPasswordError(err.message);
             break;
-      }
-    }).then(()=>{
-      if(emailError.length == 0 && passwordError.length == 0) {
-      
-        const userData = {
-          email: fire.auth().currentUser.email
-        }
-        _post(fire.auth().currentUser, userData);
       }
     });
 
@@ -106,10 +107,7 @@ const App = () => {
     authListener();
   },[])
 
-  const onProgress = () => {
-    setProgress(prev => !prev);
-    console.log(inProgress);
-  };
+
 
   return (
     <div>
@@ -130,7 +128,7 @@ const App = () => {
             passwordError={passwordError}
             />))}/>
            <Route exact path="/Challenge" 
-          render={()=> (<Challenge onProgress={onProgress} inProgress={inProgress}/>) }/>
+          render={()=> (<Challenge user={fire.auth().currentUser.uid}/>) }/>
           <Route exact path="/home" render={()=>(user?(<Home handleLogout={handleLogout} user={fire.auth().currentUser.uid}/>):(<Login 
             email={email} 
             setEmail={setEmail}
