@@ -33,6 +33,10 @@
     overflow: scroll;
 }
 
+.challenge-create-toggle input {
+    width: 90%;
+}
+
 .challenge-create-toggle button {
     color: hsl(288, 31%, 42%);
     font-size: 3vh;
